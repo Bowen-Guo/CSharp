@@ -114,6 +114,12 @@ double[] Rsi(double[] closePrice, double periods)
 	{
 		rsi[i] = 100 - (100 / (1.0 + div[i]));
 	}
+
+	// Shift 1 because current close is unknown.
+	for (int i = rsi.Length - 1; i > 0; i--)
+	{
+		rsi[i] = rsi[i-1];
+	}
 	
 	return rsi;
 }
@@ -125,6 +131,6 @@ void Main()
 	var rsi = Rsi(closePrice, periods);
 	Console.WriteLine(string.Join(",", rsi));
 	/*
-	NaN,NaN,100,100,21.951219512195124,79.08496732026144,29.584352078239604,88.57596191987307,39.92490613266583
+	NaN,NaN,NaN,100,100,21.951219512195124,79.08496732026144,29.584352078239604,88.57596191987307
 	*/
 }
